@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+	<body>
+		<ul id="root"></ul>
+		<script>
+const CONFIG = {
+	"initDataTypes": ["cenc"]
+};
+
+const VIDEO_CAPABILITIES = [
+	"video/mp4;codecs=\"avc1.42c00d\"",
+	"video/mp4;codecs=\"ec-3\"",
+	"video/webm;codecs=\"vorbis,vp8\"",
+	"video/mp2t;codecs=\"avc1.42E01E,mp4a.40.2\""
+];
+
+const AUDIO_CAPABILITIES = [
+     "audio/mp4;codecs=\"mp4a.40.2\""
+];
+
+const ROOT = document.getElementById("root");
+
+function report(msg) {
+	const el = document.createElement("li");
+	el.innerText = msg;
+	ROOT.prepend(el);
+}
+
+async function check_feature(opts, feature) {
+	let cfg = Object.assign({}, CONFIG);
+	if (opts != null) {
+		Object.assign(cfg, opts);
+	}
+	try {
+		const widevine_test = await navigator.requestMediaKeySystemAccess("com.widevine.alpha", [ cfg ]);
+		console.log(widevine_test);
+		report(`[✓] ${feature} supported!`);
+		return true;
+	} catch (e) {
+		console.error(e);
+		report(`[✗] ${feature} not supported`);
+	}
+	return false;
+}
+
+(async function() {
+	let any_detected = false;
+	for (const video_capability of VIDEO_CAPABILITIES) {
+		const r = await check_feature(
+			{
+				"videoCapabilities": [
+					{ "contentType": video_capability }
+				]
+			},
+			`video codec ${video_capability}`
+		);
+		any_detected = any_detected || r;
+	}
+	for (const audio_capability of AUDIO_CAPABILITIES) {
+		const r = await check_feature(
+			{
+				"audioCapabilities": [
+					{ "contentType": audio_capability }
+				]
+			},
+			`audio codec ${audio_capability}`
+		);
+		any_detected = any_detected || r;
+	}
+	if (!any_detected) {
+		report(`[✗] Widevine not found`);
+	} else {
+		report(`[✓] Widevine found!`);
+	}
+})();
+		</script>
+	</body>
+</html>
+
