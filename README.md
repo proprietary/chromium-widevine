@@ -12,11 +12,11 @@ Instructions are for Debian GNU/Linux amd64; should work for other Debian-based 
 
 Skip this if you already have it.
 
-``bash
+```bash
 $ wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 $ echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 $ sudo apt update && sudo apt install -y google-chrome-stable
-``
+```
 
 ### Run script
 
@@ -24,37 +24,37 @@ The following script symlinks Google Chrome's Widevine library to Chromium's dir
 
 Paste this into your terminal:
 
-``bash
+```bash
 git clone https://github.com/proprietary/chromium-widevine.git && \
 	cd chromium-widevine && \
 	./use-from-google-chrome.sh
-``
+```
 
 ## (alternative) Install Widevine alone without Google Chrome
 
 Observe the Widevine directory in the Google Chrome distribution:
 
-``
+```text
 /opt/google/chrome/WidevineCdm
 ├── LICENSE
 ├── manifest.json
 └── _platform_specific
     └── linux_x64
 	        └── libwidevinecdm.so
-``
+```
 
 So we recreate that in the Chromium directory.
 
 Paste this into your shell:
 
-``bash
+```bash
 git clone https://github.com/proprietary/chromium-widevine.git && \
 	cd chromium-widevine && \
 	./use-standalone-widevine.sh && \
 	killall -q -SIGTERM chromium-browser || \
 	killall -q -SIGTERM chromium && \
 	exec $(command -v chromium-browser || command -v chromium) ./test-widevine.html &
-``
+```
 
 N.B. Disadvantage of this method: You will have to manually re-run this script whenever Chromium updates to get the latest Widevine. The first method piggybacks Google Chrome's distribution which is assumed to be up-to-date and updated by the same package manager that updates Chromium. Use that method unless you really don't want Google Chrome on your system.
 
@@ -62,11 +62,11 @@ N.B. Disadvantage of this method: You will have to manually re-run this script w
 
 Paste into terminal (*warning: restarts Chromium*):
 
-``bash
+```bash
 killall -q -SIGTERM chromium-browser || \
 	killall -q -SIGTERM chromium && \
 	exec $(command -v chromium-browser || command -v chromium) ./test-widevine.html &
-``
+```
 
 …Or manually:
 
@@ -80,4 +80,4 @@ killall -q -SIGTERM chromium-browser || \
 
 - [Some streaming sites](https://web.archive.org/web/20191026132853/https://www.phoronix.com/scan.php?page=news_item&px=Disney-Plus-Not-On-Linux) refuse to run at all on Linux because the kernel does not provide access to chipset-level fencing of DRM decryption as provided by Microsoft and Apple systems.
 - These scripts assume a standard instlalation from Debian/Ubuntu packages. If you installed Google Chrome or Chromium manually, you might have to edit the scripts.
-- Because we are installing files directly to `/usr` (as opposed to the more appropriate `/usr/local`), and we have tofor Chromium to find Widevine, on system upgrades your package manager might clobber these files, and you will have to redo these steps.
+- Because we are installing files directly to `/usr` (as opposed to the more appropriate `/usr/local`), and we have to for Chromium to find Widevine, on system upgrades your package manager might clobber these files, and you will have to redo these steps.
