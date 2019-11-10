@@ -2,7 +2,7 @@
 
 Or: How to get Spotify/Netflix working on Chromium in Linux
 
-Most distributions' package managers come with Chromium but without Widevine, a proprietary binary blob required for DRM protected content (e.g., Netflix or Spotify). Normally your only option to access DRM-protected content would be to install Google Chrome, but here are some alternate ways you can keep using stock Chromium.
+Most distributions' package managers come with Chromium but without Widevine, a proprietary binary blob required for DRM protected content (e.g., Netflix or Spotify). Normally your only option to access DRM-protected content would be to use Google Chrome or Mozilla Firefox, but here are some alternate ways you can keep using stock Chromium.
 
 Instructions are for Debian GNU/Linux amd64; should work for other Debian-based distros like Ubuntu.
 
@@ -32,19 +32,6 @@ git clone https://github.com/proprietary/chromium-widevine.git && \
 
 ## (alternative) Install Widevine alone without Google Chrome
 
-Observe the Widevine directory in the Google Chrome distribution:
-
-```text
-/opt/google/chrome/WidevineCdm
-├── LICENSE
-├── manifest.json
-└── _platform_specific
-    └── linux_x64
-	        └── libwidevinecdm.so
-```
-
-So we recreate that in the Chromium directory.
-
 Paste this into your shell:
 
 ```bash
@@ -56,7 +43,20 @@ git clone https://github.com/proprietary/chromium-widevine.git && \
 	exec $(command -v chromium-browser || command -v chromium) ./test-widevine.html &
 ```
 
-N.B. Disadvantage of this method: You will have to manually re-run this script whenever Chromium updates to get the latest Widevine. The first method piggybacks Google Chrome's distribution which is assumed to be up-to-date and updated by the same package manager that updates Chromium. Use that method unless you really don't want Google Chrome on your system.
+The first method using Google Chrome just copied one directory from its installation. Observe the Widevine directory in the Google Chrome distribution:
+
+```text
+/opt/google/chrome/WidevineCdm
+├── LICENSE
+├── manifest.json
+└── _platform_specific
+    └── linux_x64
+	        └── libwidevinecdm.so
+```
+
+We don't actually need the whole Google Chrome installation. We can recreate that tree in the Chromium directory (i.e., `/usr/lib/chromium`) with a standalone distribution of the Widevine shared library. Copying just `libwidevinecdm.so` into `/usr/lib/chromium` doesn't work.
+
+N.B. Disadvantage of this method: You might have to manually re-run this script whenever Chromium updates to get the latest Widevine. The first method piggybacks Google Chrome's distribution which is assumed to be up-to-date and updated by the same package manager that updates Chromium. Use that method unless you really don't want Google Chrome on your system.
 
 ## Test Widevine
 
@@ -81,3 +81,5 @@ killall -q -SIGTERM chromium-browser || \
 - [Some streaming sites](https://web.archive.org/web/20191026132853/https://www.phoronix.com/scan.php?page=news_item&px=Disney-Plus-Not-On-Linux) refuse to run at all on Linux because the kernel does not provide access to chipset-level fencing of DRM decryption as provided by Microsoft and Apple systems.
 - These scripts assume a standard instlalation from Debian/Ubuntu packages. If you installed Google Chrome or Chromium manually, you might have to edit the scripts.
 - Because we are installing files directly to `/usr` (as opposed to the more appropriate `/usr/local`), and we have to for Chromium to find Widevine, on system upgrades your package manager might clobber these files, and you will have to redo these steps.
+- These instructions only work for amd64 (64-bit x86_64) on GNU/Linux. For alternate architectures like ARM or i386 (32-bit x86), please fork this and submit a pull request.
+
