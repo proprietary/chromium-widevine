@@ -1,3 +1,9 @@
+# Note: This is a fork of proprietary/chromium-widevine which works on Ubuntu 20.04 / 20.04.1 LTS.
+
+There is a [pull request](https://github.com/proprietary/chromium-widevine/pull/3) to get this upstream into [proprietary/chromium-widevine](https://github.com/proprietary/chromium-widevine).
+
+Only tested on the instructions for `(easiest) Install Google Chrome and use its Widevine distribution` (see below).
+
 # Installing Widevine on Chromium on GNU/Linux
 
 Or: How to get Spotify/Netflix working on Chromium in Linux
