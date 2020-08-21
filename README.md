@@ -1,9 +1,3 @@
-# Note: This is a fork of proprietary/chromium-widevine that works on Ubuntu 20.04 / 20.04.1 LTS.
-
-There is a [pull request](https://github.com/proprietary/chromium-widevine/pull/3) to get this upstream into [proprietary/chromium-widevine](https://github.com/proprietary/chromium-widevine).
-
-Only tested on the instructions for `(easiest) Install Google Chrome and use its Widevine distribution` (see below).
-
 # Installing Widevine on Chromium on GNU/Linux
 
 Or: How to get Spotify/Netflix working on Chromium in Linux
@@ -31,7 +25,7 @@ The following script symlinks Google Chrome's Widevine library to Chromium's dir
 Paste this into your terminal:
 
 ```bash
-git clone https://github.com/jarrellmark/chromium-widevine.git && \
+git clone https://github.com/proprietary/chromium-widevine.git && \
 	cd chromium-widevine && \
 	./use-from-google-chrome.sh
 ```
@@ -61,3 +55,31 @@ killall -q -SIGTERM chromium-browser || \
 - Because we are installing files directly to `/usr` (as opposed to the more appropriate `/usr/local`), and we have to for Chromium to find Widevine, on system upgrades your package manager might clobber these files, and you will have to redo these steps.
 - These instructions only work for amd64 (64-bit x86_64) on GNU/Linux. For alternate architectures like ARM or i386 (32-bit x86), please fork this and submit a pull request.
 
+
+## (alternative) Install Widevine alone without Google Chrome
+
+Paste this into your shell:
+
+```bash
+git clone https://github.com/proprietary/chromium-widevine.git && \
+	cd chromium-widevine && \
+	./use-standalone-widevine.sh && \
+	killall -q -SIGTERM chromium-browser || \
+	killall -q -SIGTERM chromium && \
+	exec $(command -v chromium-browser || command -v chromium) ./test-widevine.html &
+```
+
+The first method using Google Chrome just copied one directory from its installation. Observe the Widevine directory in the Google Chrome distribution:
+
+```text
+/opt/google/chrome/WidevineCdm
+├── LICENSE
+├── manifest.json
+└── _platform_specific
+    └── linux_x64
+	        └── libwidevinecdm.so
+```
+
+We don't actually need the whole Google Chrome installation. We can recreate that tree in the Chromium directory (i.e., `/usr/lib/chromium`) with a standalone distribution of the Widevine shared library. Copying just `libwidevinecdm.so` into `/usr/lib/chromium` doesn't work.
+
+N.B. Disadvantage of this method: You might have to manually re-run this script whenever Chromium updates to get the latest Widevine. The first method piggybacks Google Chrome's distribution which is assumed to be up-to-date and updated by the same package manager that updates Chromium. Use that method unless you really don't want Google Chrome on your system.
