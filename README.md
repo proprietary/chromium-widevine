@@ -1,4 +1,4 @@
-# Note: This is a fork of proprietary/chromium-widevine which works on Ubuntu 20.04 / 20.04.1 LTS.
+# Note: This is a fork of proprietary/chromium-widevine that works on Ubuntu 20.04 / 20.04.1 LTS.
 
 There is a [pull request](https://github.com/proprietary/chromium-widevine/pull/3) to get this upstream into [proprietary/chromium-widevine](https://github.com/proprietary/chromium-widevine).
 
