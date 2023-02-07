@@ -21,6 +21,9 @@ if [ -d /usr/lib/chromium ]; then
 elif [ -d /usr/lib/chromium-browser ]; then
 	# Ubuntu
 	CHROMIUM_DIR=/usr/lib/chromium-browser
+elif [ -d /usr/lib64/chromium-browser ]; then
+	# Fedora
+	CHROMIUM_DIR=/usr/lib64/chromium-browser
 elif [ -d $HOME/snap/chromium/current/.local ]; then
 	# Snap
 	mkdir -p $HOME/snap/chromium/current/.local/lib
