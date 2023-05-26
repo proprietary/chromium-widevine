@@ -8,8 +8,6 @@ which curl && DLTOOL="curl -L"
 
 # Set ARCH variable
 ARCH=""
-
-[[ -z ${ARCH} ]] && echo "Architecture not supported" 1>&2 && exit 1
 case `uname -m` in
 	i?86)
 		ARCH="ia32"
@@ -21,6 +19,7 @@ case `uname -m` in
 		;;
 esac
 
+[[ -z ${ARCH} ]] && echo "Architecture not supported" 1>&2 && exit 1
 # Begin download
 # Fix download argument for wget
 DARG=${@}
