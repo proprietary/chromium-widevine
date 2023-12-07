@@ -11,7 +11,7 @@ ARCH=""
 case `uname -m` in
 	i?86)
 		ARCH="ia32"
-		VERSION=$(${DLTOOL} https://dl.google.com/widevine-cdm/versions.txt | tail -n8 | head -1)
+		VERSION=$(${DLTOOL} https://dl.google.com/widevine-cdm/versions.txt | tail -n10 | head -1)
 		;;
 	x86_64)
 		ARCH="x64"
