@@ -53,7 +53,7 @@ git clone https://github.com/amidevous/chromium-widevine.git && \
 wget https://github.com/amidevous/chromium-widevine/archive/refs/heads/master.tar.gz -O master.tar.gz && \
 	tar -xvf master.tar.gz && rm -f master.tar.gz && \
 	cd chromium-widevine-master && \
-	./use-standalone-widevine.sh
+	sudo ./use-standalone-widevine.sh
 ```
 
 For Windows Require and use on Cygwin Terminal (https://cygwin.org)
@@ -70,7 +70,7 @@ enter command
 wget https://github.com/amidevous/chromium-widevine/archive/refs/heads/master.tar.gz -O master.tar.gz && \
 	gunzip master.tar.gz && tar -xvf master.tar && rm -f master.tar && \
 	cd chromium-widevine-master && \
-	sudo ./use-standalone-widevine-windows.sh
+	./use-standalone-widevine-windows.sh
 ```
 
 
