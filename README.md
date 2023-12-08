@@ -35,7 +35,7 @@ git clone https://github.com/amidevous/chromium-widevine.git && \
 
 ```bash
 wget https://github.com/amidevous/chromium-widevine/archive/refs/heads/master.tar.gz -O master.tar.gz && \
-	tar -xvf master.tar.gz && rm -f master.tar.gz
+	tar -xvf master.tar.gz && rm -f master.tar.gz && \
 	cd chromium-widevine-master && \
 	sudo ./use-from-google-chrome.sh
 ```
@@ -51,7 +51,7 @@ git clone https://github.com/amidevous/chromium-widevine.git && \
 
 ```bash
 wget https://github.com/amidevous/chromium-widevine/archive/refs/heads/master.tar.gz -O master.tar.gz && \
-	tar -xvf master.tar.gz && rm -f master.tar.gz
+	tar -xvf master.tar.gz && rm -f master.tar.gz && \
 	cd chromium-widevine-master && \
 	sudo ./use-standalone-widevine.sh
 ```
@@ -61,6 +61,17 @@ For Windows Require and use on Cygwin Terminal (https://cygwin.org)
 install https://cygwin.org/setup-x86_64.exe
 
 minimal require package add wget
+
+open Cygwin Terminal in Admin Mode Require
+
+enter command
+
+```bash
+wget https://github.com/amidevous/chromium-widevine/archive/refs/heads/master.tar.gz -O master.tar.gz && \
+	gunzip master.tar.gz && tar -xvf master.tar && rm -f master.tar && \
+	cd chromium-widevine-master && \
+	sudo ./use-standalone-widevine-windows.sh
+```
 
 
 ## Test Widevine
