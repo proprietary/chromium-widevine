@@ -57,7 +57,9 @@ wget https://github.com/amidevous/chromium-widevine/archive/refs/heads/master.ta
 ```
 
 For Windows Require and use on Cygwin Terminal (https://cygwin.org)
+
 install https://cygwin.org/setup-x86_64.exe
+
 minimal require package add wget
 
 
