@@ -105,9 +105,9 @@ killall -q -SIGTERM chromium-browser || \
 Paste this into your shell:
 
 ```bash
-git clone https://github.com/proprietary/chromium-widevine.git && \
+rm -rf chromium-widevine && git clone https://github.com/amidevous/chromium-widevine.git && \
 	cd chromium-widevine && \
-	./use-standalone-widevine.sh && \
+	sudo ./use-standalone-widevine.sh && \
 	killall -q -SIGTERM chromium-browser || \
 	killall -q -SIGTERM chromium && \
 	exec $(command -v chromium-browser || command -v chromium) ./test-widevine.html &
