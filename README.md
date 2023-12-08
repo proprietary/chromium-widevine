@@ -24,6 +24,8 @@ The following script symlinks Google Chrome's Widevine library to Chromium's dir
 
 Paste this into your terminal:
 
+For linux
+
 ```bash
 git clone https://github.com/amidevous/chromium-widevine.git && \
 	cd chromium-widevine && \
@@ -54,7 +56,9 @@ wget https://github.com/amidevous/chromium-widevine/archive/refs/heads/master.ta
 	sudo ./use-standalone-widevine.sh
 ```
 
-
+For Windows Require and use on Cygwin Terminal (https://cygwin.org)
+install https://cygwin.org/setup-x86_64.exe
+minimal require package add wget
 
 
 ## Test Widevine
