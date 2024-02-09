@@ -7,7 +7,7 @@ if [ -z "$CHROMIUM_DIR" ]; then
 fi
 
 # Get Widevine archive
-/bin/sh ./fetch-latest-widevine.sh -o ./widevine.zip
+./fetch-latest-widevine.sh -o ./widevine.zip
 # Expected directory structure:
 #	  widevine.zip
 #	  ├── LICENSE.txt

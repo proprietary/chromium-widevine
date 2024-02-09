@@ -24,11 +24,55 @@ The following script symlinks Google Chrome's Widevine library to Chromium's dir
 
 Paste this into your terminal:
 
+For linux
+
 ```bash
-git clone https://github.com/proprietary/chromium-widevine.git && \
+git clone https://github.com/amidevous/chromium-widevine.git && \
 	cd chromium-widevine && \
-	./use-from-google-chrome.sh
+	sudo ./use-from-google-chrome.sh
 ```
+
+
+```bash
+wget https://github.com/amidevous/chromium-widevine/archive/refs/heads/master.tar.gz -O master.tar.gz && \
+	tar -xvf master.tar.gz && rm -f master.tar.gz && \
+	cd chromium-widevine-master && \
+	sudo ./use-from-google-chrome.sh
+```
+
+
+```bash
+git clone https://github.com/amidevous/chromium-widevine.git && \
+	cd chromium-widevine && \
+	sudo ./use-standalone-widevine.sh
+```
+
+
+
+```bash
+wget https://github.com/amidevous/chromium-widevine/archive/refs/heads/master.tar.gz -O master.tar.gz && \
+	tar -xvf master.tar.gz && rm -f master.tar.gz && \
+	cd chromium-widevine-master && \
+	sudo ./use-standalone-widevine.sh
+```
+
+For Windows Require and use on Cygwin Terminal (https://cygwin.org)
+
+install https://cygwin.org/setup-x86_64.exe
+
+minimal require package add wget, gzip, tar
+
+open Cygwin Terminal in Admin Mode Require
+
+enter command
+
+```bash
+wget https://github.com/amidevous/chromium-widevine/archive/refs/heads/master.tar.gz -O master.tar.gz && \
+	gunzip master.tar.gz && tar -xvf master.tar && rm -f master.tar && \
+	cd chromium-widevine-master && \
+	./use-standalone-widevine-windows.sh
+```
+
 
 ## Test Widevine
 
@@ -61,9 +105,9 @@ killall -q -SIGTERM chromium-browser || \
 Paste this into your shell:
 
 ```bash
-git clone https://github.com/proprietary/chromium-widevine.git && \
+rm -rf chromium-widevine && git clone https://github.com/amidevous/chromium-widevine.git && \
 	cd chromium-widevine && \
-	./use-standalone-widevine.sh && \
+	sudo ./use-standalone-widevine.sh && \
 	killall -q -SIGTERM chromium-browser || \
 	killall -q -SIGTERM chromium && \
 	exec $(command -v chromium-browser || command -v chromium) ./test-widevine.html &
